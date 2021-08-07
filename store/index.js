@@ -6,10 +6,10 @@ const createStore = () => {
   return new Vuex.Store({
     state: () => ({
       todos: [
-        {content: 'Release', created: '2021-08-07 22:10', state: 'TODO', uuid: '00000000-0000-0000-0000-000000000001'}, 
-        {content: 'Testing', created: '2021-08-07 22:10', state: 'TODO', uuid: '00000000-0000-0000-0000-000000000002'},
-        {content: 'Implementation', created: '2021-08-07 22:10', state: 'DOING', uuid: '00000000-0000-0000-0000-000000000003'},
-        {content: 'Design', created: '2021-08-07 22:10', state: 'DONE', uuid: '00000000-0000-0000-0000-000000000004'},
+        {content: 'Release', created: '2021-08-07 22:40', state: 'TODO', uuid: '00000000-0000-0000-0000-000000000004'}, 
+        {content: 'Testing', created: '2021-08-07 22:30', state: 'TODO', uuid: '00000000-0000-0000-0000-000000000003'},
+        {content: 'Implementation', created: '2021-08-07 22:20', state: 'DOING', uuid: '00000000-0000-0000-0000-000000000002'},
+        {content: 'Design', created: '2021-08-07 22:10', state: 'DONE', uuid: '00000000-0000-0000-0000-000000000001'},
       ],
       states: [
         {id: 0, label: 'TODO'},

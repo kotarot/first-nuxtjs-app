@@ -11,10 +11,10 @@
     </div>
     <div class="flex justify-center py-5">
       <div class="filter">
-        <button class="btn btn-filter btn-filter-is-active">ALL</button>
-        <button class="btn btn-filter">TODO</button>
-        <button class="btn btn-filter">DOING</button>
-        <button class="btn btn-filter">DONE</button>
+        <button class="btn btn-filter" v-bind:class="{'btn-filter-is-active':filterAll}" @click="filter('ALL')">ALL</button>
+        <button class="btn btn-filter" v-bind:class="{'btn-filter-is-active':!filterAll && (filterState == 'TODO')}" @click="filter('TODO')">TODO</button>
+        <button class="btn btn-filter" v-bind:class="{'btn-filter-is-active':!filterAll && (filterState == 'DOING')}" @click="filter('DOING')">DOING</button>
+        <button class="btn btn-filter" v-bind:class="{'btn-filter-is-active':!filterAll && (filterState == 'DONE')}" @click="filter('DONE')">DONE</button>
       </div>
     </div>
     <div class="flex justify-center py-5">
@@ -28,7 +28,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in todos" :key="index">
+          <tr v-for="(item, index) in displayTodos" :key="index">
             <td>{{ item.content }}</td>
             <td>{{ item.created }}</td>
             <td>
@@ -54,10 +54,27 @@ import {mapState} from 'vuex'
 
 export default {
   data: () => {
-    return {content: ''}
+    return {
+      content: '',
+      filterState: '',
+      filterAll: true,
+    }
   },
   computed: {
-    ...mapState(['todos'])
+    ...mapState(['todos']),
+    displayTodos: function() {
+      if (this.filterAll) {
+        return this.todos
+      } else {
+        let filtered = []
+        this.todos.forEach(element => {
+          if (element.state == this.filterState) {
+            filtered.push(element)
+          }
+        })
+        return filtered
+      }
+    },
   },
   methods: {
     add: function() {
@@ -71,6 +88,10 @@ export default {
     },
     changeState: function(item) {
       this.$store.commit('changeState', item)
+    },
+    filter: function(filterState) {
+      this.filterAll = (filterState == 'ALL')
+      this.filterState = filterState
     },
   },
 }
